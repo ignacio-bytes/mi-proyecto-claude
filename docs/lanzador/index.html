@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lanzador — De tu clase grabada a tu lanzamiento completo</title>
+<meta name="description" content="Sube tu masterclass o webinar y recibe el kit completo de lanzamiento: clips con gancho, secuencia de emails, página de venta y guiones. Pensado en español.">
+<style>
+  :root {
+    --bg:        #0e0f13;
+    --surface:   #16181f;
+    --surface-2: #1d2029;
+    --border:    rgba(255,255,255,0.09);
+    --ink:       #f4f5f7;
+    --ink-2:     #b8bcc7;
+    --ink-3:     #7d8290;
+    --accent:    #6c8cff;
+    --accent-2:  #8fa7ff;
+    --accent-dk: #4a67d6;
+    --good:      #35c98a;
+    --wash:      rgba(108,140,255,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent-2); }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(14,15,19,0.85); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+  .logo { font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
+  .logo span { color: var(--accent); }
+  .nav .cta-mini {
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  }
+  .nav .cta-mini:hover { background: var(--accent-2); }
+
+  /* Hero */
+  .hero { padding: 88px 0 64px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -40% -20% auto;  height: 130%;
+    background: radial-gradient(ellipse at 50% 0%, rgba(108,140,255,0.16), transparent 60%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent-2);
+    background: var(--wash); border: 1px solid rgba(108,140,255,0.25);
+    padding: 5px 14px; border-radius: 999px; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(34px, 5.4vw, 60px); line-height: 1.1; letter-spacing: -0.025em;
+    max-width: 20ch; margin: 0 auto 18px;
+  }
+  h1 em { font-style: normal; color: var(--accent-2); }
+  .hero p.sub {
+    color: var(--ink-2); font-size: clamp(16px, 2vw, 19px); max-width: 56ch; margin: 0 auto 34px;
+  }
+  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 600; font-size: 16px;
+    padding: 14px 30px; border-radius: 12px; transition: transform .12s, background .12s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
+  .btn-ghost { border: 1px solid var(--border); color: var(--ink-2); }
+  .btn-ghost:hover { color: var(--ink); border-color: var(--ink-3); }
+  .hero .micro { margin-top: 14px; font-size: 13px; color: var(--ink-3); }
+
+  /* Secciones */
+  section { padding: 72px 0; }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 10px; }
+  h2 { font-size: clamp(26px, 3.4vw, 38px); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 12px; }
+  .lead { color: var(--ink-2); max-width: 60ch; margin-bottom: 40px; }
+
+  /* Flujo (demo) */
+  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: stretch; }
+  .flow-arrow { align-self: center; color: var(--accent); font-size: 26px; font-weight: 700; }
+  .step {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 26px 24px; text-align: center;
+  }
+  .step .n {
+    width: 34px; height: 34px; border-radius: 999px; background: var(--wash);
+    color: var(--accent-2); font-weight: 700; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 14px; border: 1px solid rgba(108,140,255,0.25);
+  }
+  .step h3 { font-size: 17px; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--ink-2); }
+  .step .icon { font-size: 34px; margin-bottom: 10px; }
+
+  /* Kit preview */
+  .kit { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .asset {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+  }
+  .asset .head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .asset .emoji { font-size: 22px; }
+  .asset h3 { font-size: 15.5px; }
+  .asset .count { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--accent-2); background: var(--wash); padding: 2px 10px; border-radius: 999px; }
+  .asset p { font-size: 13.5px; color: var(--ink-2); }
+  .asset .sample {
+    margin-top: 12px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px; font-size: 13px; color: var(--ink-2); font-style: italic;
+  }
+  .asset .sample b { color: var(--ink); font-style: normal; }
+
+  /* Comparativa */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 760px; }
+  @media (max-width: 720px) { .compare { grid-template-columns: 1fr; } .flow { grid-template-columns: 1fr; } .flow-arrow { transform: rotate(90deg); justify-self: center; } }
+  .comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
+  .comp-card.win { border-color: rgba(108,140,255,0.4); background: linear-gradient(180deg, var(--wash), var(--surface) 60%); }
+  .comp-card .tag { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+  .comp-card.win .tag { color: var(--accent-2); }
+  .comp-card .price { font-size: 38px; font-weight: 700; margin: 8px 0 2px; }
+  .comp-card .per { font-size: 13px; color: var(--ink-3); margin-bottom: 14px; }
+  .comp-card ul { list-style: none; }
+  .comp-card li { font-size: 14px; color: var(--ink-2); padding: 5px 0 5px 26px; position: relative; }
+  .comp-card li::before { content: "✕"; position: absolute; left: 0; color: var(--ink-3); font-weight: 700; }
+  .comp-card.win li::before { content: "✓"; color: var(--good); }
+
+  /* Formulario */
+  .signup {
+    background: linear-gradient(180deg, var(--wash), transparent 70%);
+    border: 1px solid rgba(108,140,255,0.3); border-radius: 22px;
+    padding: 48px clamp(22px, 5vw, 56px); text-align: center;
+  }
+  .signup h2 { margin-bottom: 10px; }
+  .signup .lead { margin: 0 auto 30px; }
+  form { display: grid; gap: 12px; max-width: 460px; margin: 0 auto; text-align: left; }
+  label { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+  input, select {
+    width: 100%; padding: 13px 16px; border-radius: 10px; font-size: 15px;
+    background: var(--surface); border: 1px solid var(--border); color: var(--ink);
+    font-family: inherit;
+  }
+  input:focus, select:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  button[type=submit] {
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 16px;
+    padding: 15px; border: none; border-radius: 12px; cursor: pointer; margin-top: 6px;
+    font-family: inherit; transition: background .12s;
+  }
+  button[type=submit]:hover { background: var(--accent-2); }
+  .form-micro { font-size: 12.5px; color: var(--ink-3); text-align: center; }
+  .success {
+    display: none; background: rgba(53,201,138,0.12); border: 1px solid rgba(53,201,138,0.4);
+    color: var(--good); border-radius: 12px; padding: 18px; font-weight: 600; text-align: center;
+  }
+
+  /* FAQ */
+  .faq details {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 22px; margin-bottom: 10px;
+  }
+  .faq summary { font-weight: 600; cursor: pointer; font-size: 15.5px; }
+  .faq p { margin-top: 10px; color: var(--ink-2); font-size: 14.5px; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--ink-3); font-size: 13.5px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">✦ Lanza<span>dor</span></div>
+    <a class="cta-mini" href="#acceso">Acceso anticipado</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <span class="badge">Beta privada · cupo fundador limitado</span>
+    <h1>Tu clase grabada ya contiene tu lanzamiento. <em>Nosotros lo extraemos.</em></h1>
+    <p class="sub">Sube tu masterclass o webinar y recibe en minutos el kit completo para lanzar tu curso: clips con gancho, secuencia de emails, página de venta y guiones — con tus palabras, tus historias y tu tono. Pensado en español, no traducido.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#acceso">Quiero mi kit de lanzamiento →</a>
+      <a class="btn btn-ghost" href="#demo">Ver cómo funciona</a>
+    </div>
+    <p class="micro">Sin tarjeta · Los primeros 30 fundadores reciben precio de por vida</p>
+  </div>
+</div>
+
+<!-- DEMO / FLUJO -->
+<section id="demo">
+  <div class="wrap">
+    <p class="kicker">Cómo funciona</p>
+    <h2>Una clase entra. Un lanzamiento sale.</h2>
+    <p class="lead">Nada de empezar frente a la página en blanco ni pegar 5 herramientas en inglés. El trabajo difícil —enseñar bien— ya lo hiciste tú.</p>
+    <div class="flow">
+      <div class="step">
+        <div class="icon">🎥</div>
+        <div class="n">1</div>
+        <h3>Sube tu clase</h3>
+        <p>Tu masterclass, webinar o una clase de tu curso. Video o audio, hasta 90 minutos. También un link de YouTube o Zoom.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="step">
+        <div class="icon">🧠</div>
+        <div class="n">2</div>
+        <h3>La IA entiende tu oferta</h3>
+        <p>Detecta qué vendes y a quién, tus mejores historias, las objeciones que respondes y los momentos con potencial de clip.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="step">
+        <div class="icon">🚀</div>
+        <div class="n">3</div>
+        <h3>Recibe tu kit completo</h3>
+        <p>Todo el material de tu campaña de 7–14 días, listo para publicar, copiar o exportar a Hotmart, Systeme.io o tu email marketing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIT -->
+<section style="padding-top: 0">
+  <div class="wrap">
+    <p class="kicker">El kit de lanzamiento</p>
+    <h2>Esto es lo que sale de una sola clase</h2>
+    <p class="lead">Generado desde tu transcripción real — tus frases, tu acento, tu forma de explicar. No plantillas genéricas.</p>
+    <div class="kit">
+      <div class="asset">
+        <div class="head"><span class="emoji">🎬</span><h3>Clips verticales</h3><span class="count">10–15</span></div>
+        <p>Con gancho en los primeros 3 segundos y subtítulos en tu acento (México, Colombia, Argentina, España o neutro). Listos para TikTok, Reels y Shorts.</p>
+        <div class="sample"><b>Gancho detectado:</b> "El error #1 que cometes al hacer dieta no tiene nada que ver con la comida…"</div>
+      </div>
+      <div class="asset">
+        <div class="head"><span class="emoji">✉️</span><h3>Secuencia de emails</h3><span class="count">7–9</span></div>
+        <p>La estructura de campaña que usa este mercado: expectativa → historia → valor → apertura de carrito → objeciones → escasez → cierre.</p>
+        <div class="sample"><b>Asunto del email 4:</b> "Ya puedes entrar (y esto es lo que encontrarás adentro)"</div>
+      </div>
+      <div class="asset">
+        <div class="head"><span class="emoji">🖥️</span><h3>Página de venta</h3><span class="count">1</span></div>
+        <p>Promesa, beneficios en bullets, prueba social, FAQ y llamada a la acción. Exportable a Hotmart Pages o Systeme.io.</p>
+        <div class="sample"><b>Promesa generada:</b> "Aprende a comer sin culpa en 6 semanas — sin contar calorías ni prohibirte nada"</div>
+      </div>
+      <div class="asset">
+        <div class="head"><span class="emoji">📱</span><h3>Guiones de historias</h3><span class="count">15</span></div>
+        <p>Para cada día de tu campaña: encuestas, countdown, testimonios, apertura y cierre de carrito.</p>
+        <div class="sample"><b>Día 3:</b> "Sube la encuesta: ¿cuál es tu mayor lucha con la comida? (usa las respuestas en el email 5)"</div>
+      </div>
+      <div class="asset">
+        <div class="head"><span class="emoji">🎤</span><h3>Guion del live de cierre</h3><span class="count">1</span></div>
+        <p>Apertura, pitch y manejo de objeciones — extraídas de las preguntas reales que respondiste en tu propia clase.</p>
+        <div class="sample"><b>Objeción detectada:</b> "no tengo tiempo" → responde con tu historia del minuto 34</div>
+      </div>
+      <div class="asset">
+        <div class="head"><span class="emoji">🗓️</span><h3>Calendario de campaña</h3><span class="count">7–14 días</span></div>
+        <p>Qué publicar y enviar cada día, en orden. Tu lanzamiento deja de ser caos y se vuelve una lista de tareas.</p>
+        <div class="sample"><b>Lunes:</b> clip 3 + historia 1 · <b>Martes:</b> email 1 + clip 7…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVA -->
+<section style="padding-top: 24px">
+  <div class="wrap">
+    <p class="kicker">La cuenta es simple</p>
+    <h2>Lo que hoy cuesta semanas o cientos de dólares</h2>
+    <div class="compare" style="margin-top: 28px">
+      <div class="comp-card">
+        <div class="tag">Hoy: agencia o hacerlo tú</div>
+        <div class="price">$500–3.000</div>
+        <div class="per">por lanzamiento · 2–4 semanas de espera</div>
+        <ul>
+          <li>Pegar 4–6 herramientas en inglés</li>
+          <li>Copy genérico que no suena a ti</li>
+          <li>Cada lanzamiento parte de cero</li>
+        </ul>
+      </div>
+      <div class="comp-card win">
+        <div class="tag">Con Lanzador</div>
+        <div class="price">$29<span style="font-size:16px; color: var(--ink-3)">/mes</span></div>
+        <div class="per">precio fundador de por vida · kit en minutos</div>
+        <ul>
+          <li>Todo el kit desde una sola clase</li>
+          <li>Con tu voz: tus frases, tus historias</li>
+          <li>En español nativo, con tu acento</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section id="acceso">
+  <div class="wrap">
+    <div class="signup">
+      <p class="kicker">Beta privada</p>
+      <h2>Sé de los primeros 30 fundadores</h2>
+      <p class="lead">Acceso anticipado, precio de por vida y línea directa con nosotros para que el producto se construya alrededor de <b>tu</b> próximo lanzamiento.</p>
+      <form id="waitlistForm">
+        <div>
+          <label for="email">Tu email</label>
+          <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+        </div>
+        <div>
+          <label for="tipo">¿Qué describe mejor tu situación?</label>
+          <select id="tipo" name="tipo" required>
+            <option value="" disabled selected>Elige una opción…</option>
+            <option>Ya vendo cursos y hago lanzamientos</option>
+            <option>Tengo audiencia, preparo mi primer curso</option>
+            <option>Llevo lanzamientos de clientes (agencia/freelance)</option>
+            <option>Solo estoy explorando</option>
+          </select>
+        </div>
+        <div>
+          <label for="cuando">¿Cuándo es tu próximo lanzamiento?</label>
+          <select id="cuando" name="proximo_lanzamiento" required>
+            <option value="" disabled selected>Elige una opción…</option>
+            <option>Este mes</option>
+            <option>En 1–3 meses</option>
+            <option>Más adelante</option>
+            <option>Aún no lo sé</option>
+          </select>
+        </div>
+        <button type="submit">Reservar mi lugar de fundador →</button>
+        <p class="form-micro">Sin spam. Solo noticias del acceso anticipado.</p>
+      </form>
+      <div class="success" id="successMsg">🎉 ¡Listo! Estás en la lista. Te escribiremos muy pronto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" style="padding-top: 8px">
+  <div class="wrap" style="max-width: 760px">
+    <p class="kicker">Preguntas frecuentes</p>
+    <h2 style="margin-bottom: 24px">Lo que nos preguntan</h2>
+    <details>
+      <summary>¿No puedo hacer esto con ChatGPT?</summary>
+      <p>Puedes generar textos sueltos, sí. Lanzador hace algo distinto: analiza tu clase completa, extrae TUS historias y objeciones reales, y arma el kit entero con la estructura de campaña probada de este mercado — clips editados con subtítulos incluidos. Es la diferencia entre ingredientes y un menú servido.</p>
+    </details>
+    <details>
+      <summary>¿Reemplaza a Hotmart o Systeme.io?</summary>
+      <p>No — los complementa. Lanzador genera el material; tu plataforma de siempre aloja el curso y cobra. Exportamos directo a ellas.</p>
+    </details>
+    <details>
+      <summary>¿En qué idioma/acento genera?</summary>
+      <p>Español nativo: neutro, mexicano, colombiano, argentino o de España. No es traducción — está construido para este mercado desde el día uno.</p>
+    </details>
+    <details>
+      <summary>¿Qué necesito para empezar?</summary>
+      <p>Una clase, masterclass o webinar grabado (video o audio, hasta 90 min). Con eso generamos tu primer kit.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">✦ Lanzador · Hecho para creadores-educadores hispanos · <a href="#acceso">Acceso anticipado</a></div>
+</footer>
+
+<script>
+  // ── CONFIGURACIÓN DEL FORMULARIO ─────────────────────────────
+  // Opción recomendada: crea un form gratis en https://formspree.io
+  // y pega aquí tu endpoint, ej: "https://formspree.io/f/abcd1234"
+  const FORM_ENDPOINT = "";
+  // ─────────────────────────────────────────────────────────────
+
+  const form = document.getElementById("waitlistForm");
+  const success = document.getElementById("successMsg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.fecha = new Date().toISOString();
+
+    if (FORM_ENDPOINT) {
+      try {
+        await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data),
+        });
+      } catch (err) { /* aún así mostramos éxito; el registro local queda abajo */ }
+    }
+    // Respaldo local (útil en pruebas sin endpoint)
+    const list = JSON.parse(localStorage.getItem("lanzador_waitlist") || "[]");
+    list.push(data);
+    localStorage.setItem("lanzador_waitlist", JSON.stringify(list));
+
+    form.style.display = "none";
+    success.style.display = "block";
+  });
+</script>
+</body>
+</html>
